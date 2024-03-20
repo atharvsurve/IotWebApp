@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
+    <title>Youtube Comments Analyzer</title>
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+        <nav id="navbar">
+            <a href="#">Home</a>
+            <a href="#">about</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+    <h1>Youtube Comments Analyzer</h1>
+    <div class='description'>
+        Now Analyse Your YouTube video comments just on a click!!
+    </div>
+    <div class='userinput'>
+        <h2>Enter a YouTube URL:</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="youtube_url"></label>
+            <input type="text" id="youtube_url" class='url' name="youtube_url" placeholder='Please enter here' required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% if plot_image %}
+        <img src="data:image/png;base64,{{ plot_image }}" alt="Sentiment Analysis Pie Chart">
+        <ul>
+            <li>Total positive comments: {{ senti.Positive  }}</li>
+            <li>Total negative comments: {{ senti.Negative  }}</li>
+            <li>Total neutral comments: {{ senti.Neutral }}</li>
+        </ul>
+    {% endif %}
+</body>
+</html>
